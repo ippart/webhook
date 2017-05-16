@@ -13,7 +13,8 @@ buildfs:
 		-v $(CURDIR)/src:/src \
 		imega/base-builder \
 		--packages=" \
-			nginx-lua \
+			nginx-common@v34 \
+			nginx-lua@v34 \
 			lua5.1-cjson \
 			git \
 			curl \
@@ -27,9 +28,8 @@ start:
 		-v /root/.dockercfg:/root/.dockercfg \
 		-v /tmp:/tmp \
 		-v /var/run/docker.sock:/var/run/docker.sock \
-		-e WEBHOOK=$(KV_WEBHOOK) \
 		--restart=always \
-		$(PORT) $(IMAGE):$(TAG)
+		$(PORT) $(IMAGE)
 
 test: build start
 	@docker run --rm=$(DOCKER_RM) \
