@@ -6,6 +6,7 @@ services:
   - docker
 
 script:
+  - make buildfs || exit 1
   - make build || exit 1
 
 after_success:
