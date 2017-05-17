@@ -37,4 +37,4 @@ ngx.status = ngx.HTTP_OK
 ngx.say("200 HTTP_OK Start deploy")
 ngx.eof()
 
-os.execute("cd /tmp; git clone https://github.com/ippart/backend.git; cd /tmp/backend; make deploy; cd /;rm -rf /tmp/backend")
+os.execute("cd /tmp && git clone https://github.com/ippart/backend.git && cd /tmp/backend && make deploy -C /tmp/backend && sleep 5 && cd / && rm -rf /tmp/backend || rm -rf /tmp/backend")
