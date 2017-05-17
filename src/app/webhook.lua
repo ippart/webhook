@@ -23,7 +23,7 @@ local body = ngx.req.get_body_data()
 local jsonErrorParse, data = pcall(json.decode, body)
 if not jsonErrorParse then
     ngx.status = ngx.HTTP_BAD_REQUEST
-    ngx.say("400 HTTP_BAD_REQUEST")
+    ngx.say("400 HTTP_BAD_REQUEST " + jsonErrorParse)
     ngx.exit(ngx.status)
 end
 
@@ -34,7 +34,7 @@ if data.action ~= "closed" or data.pull_request.merged == false then
 end
 
 ngx.status = ngx.HTTP_OK
-ngx.say("200 HTTP_OK")
+ngx.say("200 HTTP_OK Start deploy")
 ngx.eof()
 
 os.execute("cd /tmp; git clone " .. data.repository.clone_url .. "; cd /tmp/" .. data.repository.name .. "; make deploy; cd /;rm -rf /tmp/" .. data.repository.name)
